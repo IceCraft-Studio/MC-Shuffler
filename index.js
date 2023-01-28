@@ -30,8 +30,12 @@ app.listen(port, (error) => {
   commandListener();
 });
 
-//# Functions:
+//# Check for new vanilla packs once per hour:
+setInterval(() => {
+  //dconst 
+},3600000);
 
+//# Functions:
 async function commandListener() {
   const stdOutput = await new Promise(async (resolve) => {
     const options = {};
