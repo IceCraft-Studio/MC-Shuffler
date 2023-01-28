@@ -1,6 +1,7 @@
 console.log('test')
 
 document.getElementById('generate-pack').addEventListener('submit',(eventData) => {
+    console.log(';lets prevent data')
     eventData.preventDefault();
     const formData = new FormData(eventData.target);
     console.log(formData);
