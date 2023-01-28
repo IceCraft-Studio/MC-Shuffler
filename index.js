@@ -15,6 +15,10 @@ app.get('/', (req, res) => {
   res.sendFile(`index.html`, { root: './web-page/' });
 });
 
+app.get('/download', (req, res) => {
+  res.send('test');
+});
+
 app.head(/.*$/, (req, res) => {
   res.status(200).send(null);
   console.log('200 - OK [Pong!]');
