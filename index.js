@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const uuid = require('uuid');
 const admZip = require('adm-zip');
+const compression = require('compression');
 const serveStatic = require('serve-static');
 const { exec } = require('node:child_process');
 
