@@ -13,8 +13,8 @@ const app = express();
 app.disable('x-powered-by');
 app.disable('etag');
 
-app.get('/', (req, res) => {
-  res.sendFile(`index.html`, { root: './web-page/' });
+app.get('/download', (req, res) => {
+  res.send('test');
 });
 
 function shouldCompress(req) {
@@ -42,10 +42,6 @@ app.use(compression({
     res.status(404)
     res.sendFile(__dirname + '/web-page/404.html')
   });
-
-app.get('/download', (req, res) => {
-  res.send('test');
-});
 
 app.head(/.*$/, (req, res) => {
   res.status(200).send(null);
