@@ -1,3 +1,5 @@
+console.log('test')
+
 document.getElementById('generate-pack').addEventListener('submit',(eventData) => {
     eventData.preventDefault();
     const formData = new FormData(eventData.target);
