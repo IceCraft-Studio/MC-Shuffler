@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const uuid = require('uuid');
 const admZip = require('adm-zip');
+const serveStatic = require('serve-static');
 const { exec } = require('node:child_process');
 
 console.log('Starting...');
@@ -14,6 +15,32 @@ app.disable('etag');
 app.get('/', (req, res) => {
   res.sendFile(`index.html`, { root: './web-page/' });
 });
+
+function shouldCompress(req) {
+  if (req.headers['x-no-compression']) {
+    return false;
+  }
+  return true;
+};
+
+app.use(compression({
+  filter: shouldCompress,
+  threshold: 0
+  }),
+  serveStatic((__dirname + '/web-page/'), {
+    setHeaders: function(res, path) {
+      file_path = serveStatic.mime.lookup(path);
+      if (file_path === 'text/html' || file_path === 'text/css' || file_path === 'application/javascript') {
+        res.setHeader('Cache-Control', 'public, max-age=0');
+      } else {
+        res.setHeader('cache-control', 'public, max-age=2592000');
+      }
+    }
+  }),
+  express.static(__dirname + '/web-page/'), (_, res, next) => {
+    res.status(404)
+    res.sendFile(__dirname + '/web-page/404.html')
+  });
 
 app.get('/download', (req, res) => {
   res.send('test');
